@@ -8,6 +8,7 @@ class LinkedList {
         this.head = new Node(data);
     }
 
+    // function to add the node in linked list
     void addNode(int data, LinkedList h) {
         Node newNode = new Node(data);
         Node temp = h.head;
@@ -18,6 +19,7 @@ class LinkedList {
 
     }
 
+    // function to print the linked list
     void printLL(LinkedList l) {
         Node temp = l.head;
         while (temp != null) {
@@ -26,6 +28,7 @@ class LinkedList {
         }
     }
 
+    // to change the head of the linkedlist
     void addNodeToHead(int data, LinkedList h) {
         Node newNode = new Node(data);
         Node temp = h.head;
@@ -35,12 +38,11 @@ class LinkedList {
         h.head = newNode;
     }
 
+    // functioon to delete the node based on position
     void deleteNode(int position, LinkedList h) {
         Node temp = h.head;
         int count = 1;
 
-        // 9->10->11
-        // deleting head
         if (position == 1) {
             h.head = temp.next;
             return;
@@ -57,6 +59,7 @@ class LinkedList {
         }
     }
 
+    // to find the length of the linked list
     int lengthOfLinkedList(LinkedList l) {
         int length = 1;
         Node temp = l.head;
@@ -68,6 +71,7 @@ class LinkedList {
         return length;
     }
 
+    // to search for the element in the linked list
     int searchInLinkedList(LinkedList l, int data) {
         Node temp = l.head;
         int count = 1;
@@ -80,6 +84,40 @@ class LinkedList {
             count = count + 1;
         }
         return -1;
+    }
+
+    // leetcode solution to find the middle of the linked list
+    static Node findMiddleOfLinkedList(LinkedList ll) {
+
+        int length = ll.lengthOfLinkedList(ll);
+        int count = 1;
+        Node temp = ll.head;
+        Node newHead = null;
+        while (temp != null) {
+            temp = temp.next;
+            count = count + 1;
+            if (count == (length / 2) + 1) {
+                newHead = temp;
+            }
+        }
+        return newHead;
+    }
+
+    // leetcode solution to return the reversed linked list
+    static LinkedList reverseLinkedList(LinkedList LL) {
+        Node prev = null;
+        Node current = LL.head;
+        Node next = null;
+
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        LL.head = prev;
+        return LL;
+
     }
 }
 
@@ -97,18 +135,26 @@ class Node {
 public class LinkedListImplementation {
 
     public static void main(String[] args) {
-        LinkedList l1 = new LinkedList(10);
-        l1.addNode(11, l1);
-        l1.addNode(12, l1);
-        l1.addNode(13, l1);
-        l1.addNode(14, l1);
-        l1.addNode(15, l1);
-        l1.addNodeToHead(9, l1);
-        l1.deleteNode(1, l1);
-        l1.printLL(l1);
-        System.out.println();
-        System.out.println("Length of the linked list is " + l1.lengthOfLinkedList(l1));
-        System.out.println(" " + l1.searchInLinkedList(l1, 10));
+        LinkedList l1 = new LinkedList(1);
+        l1.addNode(2, l1);
+        l1.addNode(3, l1);
+        l1.addNode(4, l1);
+        l1.addNode(5, l1);
+        l1.addNode(6, l1);
+
+        // l1.printLL(l1);
+
+        // LinkedList revLinkedList = l1.reverseLinkedList(l1);
+
+        // System.out.println();
+        // revLinkedList.printLL(l1);
+
+        Node newHead = l1.findMiddleOfLinkedList(l1);
+        LinkedList newLL = new LinkedList(0);
+        newLL.head = newHead;
+
+        newLL.printLL(newLL);
+
     }
 
 }
