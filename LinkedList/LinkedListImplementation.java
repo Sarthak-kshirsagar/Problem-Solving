@@ -119,6 +119,66 @@ class LinkedList {
         return LL;
 
     }
+
+    // function for adding two linkedLists
+    static LinkedList addingTwoLinkedList(LinkedList l1, LinkedList l2) {
+        // for adding the head of the linked list
+        int carry = 0;
+        int ans = l1.head.data + l2.head.data;
+        carry = ans / 10;
+        ans = ans % 10;
+
+        LinkedList result = new LinkedList(ans);
+        Node temp1 = l1.head.next;
+        Node temp2 = l2.head.next;
+        // if the length of both the linked list is equal to 1,and addition of head
+        // contains carry
+        if (l1.head.next == null && l2.head.next == null && carry > 0) {
+            result.addNode(carry, result);
+        }
+
+        // to iteratively add the add the linkedlist
+        while (temp1 != null) {
+            System.out.println("entered");
+
+            if (temp1 != null && temp2 != null) {
+                int answer = temp1.data + temp2.data + carry;
+                carry = 0;
+                carry = answer / 10;
+                int unitPlace = answer % 10;
+
+                result.addNode(unitPlace, result);
+
+            }
+            temp1 = temp1.next;
+            temp2 = temp2.next;
+
+            // if the lenght of linked list is not equal , if any of the temp reaches null ,
+            // break from the loop
+            if (temp1 == null || temp2 == null) {
+                System.out.println("loop breaked");
+                break;
+            }
+
+        }
+
+        // adding the remaining nodes to the linked list
+        while (temp1 != null) {
+            Node answerNode = new Node(temp1.data);
+            result.addNode(answerNode.data + carry, result);
+            carry = 0;
+            temp1 = temp1.next;
+        }
+        // adding the remaining nodes to the linked list
+        while (temp2 != null) {
+            Node answerNode = new Node(temp2.data);
+            result.addNode(answerNode.data + carry, result);
+            carry = 0;
+            temp2 = temp2.next;
+        }
+
+        return result;
+    }
 }
 
 class Node {
@@ -135,25 +195,20 @@ class Node {
 public class LinkedListImplementation {
 
     public static void main(String[] args) {
+        // linked list one
         LinkedList l1 = new LinkedList(1);
-        l1.addNode(2, l1);
-        l1.addNode(3, l1);
-        l1.addNode(4, l1);
-        l1.addNode(5, l1);
-        l1.addNode(6, l1);
+        l1.addNode(0, l1);
+        l1.addNode(0, l1);
 
-        // l1.printLL(l1);
+        // linked list two
+        LinkedList l2 = new LinkedList(1);
+        l2.addNode(0, l2);
+        l2.addNode(0, l2);
 
-        // LinkedList revLinkedList = l1.reverseLinkedList(l1);
-
-        // System.out.println();
-        // revLinkedList.printLL(l1);
-
-        Node newHead = l1.findMiddleOfLinkedList(l1);
-        LinkedList newLL = new LinkedList(0);
-        newLL.head = newHead;
-
-        newLL.printLL(newLL);
+        // addition of the linked lists
+        LinkedList result = new LinkedList(0);
+        result = result.addingTwoLinkedList(l1, l2);
+        result.printLL(result);
 
     }
 
